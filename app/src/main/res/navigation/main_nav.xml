@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_nav.xml"
+    app:startDestination="@id/playListsFragment">
+
+    <fragment
+        android:id="@+id/playListsFragment"
+        android:name="com.example.simpmusic.ui.fragments.PlayListsFragment"
+        android:label="fragment_play_lists"
+        tools:layout="@layout/fragment_play_lists" >
+        <action
+            android:id="@+id/action_playListsFragment_to_musicPlayerFragment"
+            app:destination="@id/musicPlayerFragment"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@anim/nav_default_exit_anim" />
+    </fragment>
+    <fragment
+        android:id="@+id/musicPlayerFragment"
+        android:name="com.example.simpmusic.ui.fragments.MusicPlayerFragment"
+        android:label="fragment_music_player"
+        tools:layout="@layout/fragment_music_player" >
+        <argument
+            android:name="songsList"
+            app:argType="com.example.simpmusic.datasource.models.SongsList" />
+        <argument
+            android:name="position"
+            app:argType="integer"
+            android:defaultValue="0" />
+    </fragment>
+</navigation>

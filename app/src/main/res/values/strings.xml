@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">SimpMusic</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="preparing_music">Preparing your playlists!</string>
+    <string name="play_or_pause">Play or Pause</string>
+    <string name="user_logo">User Logo</string>
+    <string name="play">Play</string>
+    <string name="pause">Pause</string>
+</resources>
