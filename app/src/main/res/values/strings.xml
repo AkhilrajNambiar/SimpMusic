@@ -7,4 +7,8 @@
     <string name="user_logo">User Logo</string>
     <string name="play">Play</string>
     <string name="pause">Pause</string>
+    <string name="placeholder_image">Placeholder Image</string>
+    <string name="buffering">Buffering…</string>
+    <string name="fast_forward">Fast Forward 5 seconds</string>
+    <string name="rewind">Rewind 5 seconds</string>
 </resources>

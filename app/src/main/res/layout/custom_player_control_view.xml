@@ -148,10 +148,13 @@
 
         <ImageView
             android:id="@+id/exo_play"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
             android:src="@drawable/ic_play"
             android:layout_gravity="top"
+            android:clickable="true"
+            android:focusable="true"
+            android:background="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="@string/play"
             app:tint="#CC000000"
             app:layout_constraintStart_toStartOf="parent"
@@ -160,10 +163,13 @@
 
         <ImageView
             android:id="@+id/exo_pause"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
             android:src="@drawable/ic_pause"
             android:contentDescription="@string/pause"
+            android:clickable="true"
+            android:focusable="true"
+            android:background="?attr/selectableItemBackgroundBorderless"
             app:tint="#CC000000"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/exo_position"
@@ -173,24 +179,58 @@
 
     <ImageView
         android:id="@+id/exo_prev"
-        android:layout_width="45dp"
-        android:layout_height="45dp"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
         android:src="@drawable/ic_previous"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="?attr/selectableItemBackgroundBorderless"
         app:tint="#CC000000"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/ll_play_or_pause"
         app:layout_constraintTop_toTopOf="@id/ll_play_or_pause"
         app:layout_constraintBottom_toBottomOf="@id/ll_play_or_pause"/>
 
 
     <ImageView
         android:id="@+id/exo_next"
-        android:layout_width="45dp"
-        android:layout_height="45dp"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
         android:src="@drawable/ic_next"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="?attr/selectableItemBackgroundBorderless"
         app:tint="#CC000000"
-        app:layout_constraintStart_toEndOf="@id/ll_play_or_pause"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/ll_play_or_pause"
+        app:layout_constraintBottom_toBottomOf="@id/ll_play_or_pause"/>
+
+    <ImageView
+        android:id="@+id/exo_ffwd"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:src="@drawable/ic_fast_forward"
+        android:contentDescription="@string/fast_forward"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        app:tint="#CC000000"
+        app:layout_constraintEnd_toStartOf="@id/exo_next"
+        app:layout_constraintStart_toEndOf="@id/ll_play_or_pause"
+        app:layout_constraintTop_toTopOf="@id/ll_play_or_pause"
+        app:layout_constraintBottom_toBottomOf="@id/ll_play_or_pause"/>
+
+    <ImageView
+        android:id="@+id/exo_rew"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:src="@drawable/ic_rewind"
+        android:contentDescription="@string/rewind"
+        app:tint="#CC000000"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        app:layout_constraintStart_toEndOf="@id/exo_prev"
+        app:layout_constraintEnd_toStartOf="@id/ll_play_or_pause"
         app:layout_constraintTop_toTopOf="@id/ll_play_or_pause"
         app:layout_constraintBottom_toBottomOf="@id/ll_play_or_pause"/>
 

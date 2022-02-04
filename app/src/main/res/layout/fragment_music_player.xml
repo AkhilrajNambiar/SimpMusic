@@ -6,12 +6,80 @@
     android:layout_height="match_parent"
     tools:context=".ui.fragments.MusicPlayerFragment">
 
+    <LinearLayout
+        android:id="@+id/ll_song_name_and_creator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/tv_song_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:layout_gravity="center"
+            android:fontFamily="@font/quicksand_bold"
+            android:textSize="20sp"/>
+
+        <TextView
+            android:id="@+id/tv_creator_email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textSize="18sp"/>
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/iv_song_image"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:src="@drawable/monkeywithheadphones"
+        android:contentDescription="@string/placeholder_image"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <LinearLayout
+        android:id="@+id/ll_loading_gif"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/iv_loading_monkey"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_gravity="center"/>
+
+        <TextView
+            android:id="@+id/tv_loading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:text="@string/buffering"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:fontFamily="@font/quicksand_bold"/>
+
+    </LinearLayout>
+
     <com.google.android.exoplayer2.ui.PlayerControlView
         android:id="@+id/pv_music_player"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:paddingBottom="50dp"
         app:controller_layout_id="@layout/custom_player_control_view"
-        app:show_timeout="0"/>
+        app:show_timeout="0"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
