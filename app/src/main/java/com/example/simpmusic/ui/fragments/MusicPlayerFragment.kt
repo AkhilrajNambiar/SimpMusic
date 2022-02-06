@@ -23,6 +23,7 @@ import com.example.simpmusic.ui.MainActivity
 import com.example.simpmusic.util.SongService
 import com.google.android.exoplayer2.ExoPlayer
 import com.google.android.exoplayer2.MediaItem
+import com.google.android.exoplayer2.PlaybackParameters
 import com.google.android.exoplayer2.Player
 import com.google.android.exoplayer2.ui.PlayerControlView
 
@@ -35,6 +36,8 @@ class MusicPlayerFragment : Fragment() {
     private lateinit var player: ExoPlayer
     private lateinit var mediaSessionCompat: MediaSessionCompat
     private lateinit var notificationManager: NotificationManagerCompat
+    private val speeds = listOf<Float>(0.25f, 0.5f, 1.0f, 1.5f, 2.0f)
+    private var defaultSpeedIndex = 2
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -55,6 +58,7 @@ class MusicPlayerFragment : Fragment() {
         val loadingGif = view.findViewById<LinearLayout>(R.id.ll_loading_gif)
         val monkeyLoading = view.findViewById<ImageView>(R.id.iv_loading_monkey)
         val songImage = view.findViewById<ImageView>(R.id.iv_song_image)
+        val playbackSpeedControl = view.findViewById<TextView>(R.id.tv_playback_speed)
 
         val mediaItems = songsList.shorts.map {
             MediaItem.fromUri(it.audioPath)
@@ -120,6 +124,7 @@ class MusicPlayerFragment : Fragment() {
                 it.setMediaItems(mediaItems, position, 0L)
                 it.playWhenReady = true
                 it.seekTo(0L)
+                it.playbackParameters = PlaybackParameters(speeds[defaultSpeedIndex])
                 it.addListener(object: Player.Listener{
                     override fun onMediaItemTransition(mediaItem: MediaItem?, reason: Int) {
                         val index = mediaItems.indexOf(mediaItem!!)
@@ -161,6 +166,17 @@ class MusicPlayerFragment : Fragment() {
             }
         player.prepare()
         startSongService(songsList, position, true)
+
+        playbackSpeedControl.setOnClickListener {
+            if (defaultSpeedIndex != speeds.size - 1) {
+                defaultSpeedIndex++
+            }
+            else {
+                defaultSpeedIndex = 0
+            }
+            player.playbackParameters = PlaybackParameters(speeds[defaultSpeedIndex])
+            playbackSpeedControl.text = "${speeds[defaultSpeedIndex]}x"
+        }
 //        createNotification(position)
     }
 

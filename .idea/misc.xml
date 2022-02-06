@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/nambi/AndroidStudioProjects/SimpMusic/app/src/main/res/drawable/blue_bordered_corners.xml" value="0.19166666666666668" />
         <entry key="..\:/Users/nambi/AndroidStudioProjects/SimpMusic/app/src/main/res/drawable/ic_fast_forward.xml" value="0.2203125" />
         <entry key="..\:/Users/nambi/AndroidStudioProjects/SimpMusic/app/src/main/res/layout/activity_main.xml" value="0.13903985507246377" />
         <entry key="..\:/Users/nambi/AndroidStudioProjects/SimpMusic/app/src/main/res/layout/custom_player_control_view.xml" value="0.18" />

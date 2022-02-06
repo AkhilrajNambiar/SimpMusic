@@ -14,4 +14,5 @@
     <string name="reload">Reload</string>
     <string name="channel_name">Channel 1</string>
     <string name="channel_description">Channel 1 description...</string>
+    <string name="normal_speed">1.0x</string>
 </resources>
