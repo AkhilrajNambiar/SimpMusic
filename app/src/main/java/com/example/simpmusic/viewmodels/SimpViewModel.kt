@@ -8,6 +8,7 @@ import android.os.Build
 import android.util.Log
 import androidx.lifecycle.*
 import com.example.simpmusic.SimpMusicApplication
+import com.example.simpmusic.datasource.models.Short
 import com.example.simpmusic.datasource.models.SongsResponse
 import com.example.simpmusic.datasource.repository.SimpRepository
 import com.example.simpmusic.util.Resource
@@ -21,6 +22,8 @@ class SimpViewModel(
 
     private val _musicResponse = MutableLiveData<Resource<SongsResponse>>()
     val musicResponse: LiveData<Resource<SongsResponse>> = _musicResponse
+
+    var musicList = listOf<Short>()
 
     fun getAllSongs() = viewModelScope.launch(Dispatchers.IO) {
         _musicResponse.postValue(Resource.Loading())

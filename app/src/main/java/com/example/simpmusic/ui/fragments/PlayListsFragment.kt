@@ -5,10 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -40,6 +37,9 @@ class PlayListsFragment : Fragment(), PlaylistAdapter.MusicClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val monkeyLoad = view.findViewById<ImageView>(R.id.iv_loading_monkey)
         val loadingGif = view.findViewById<LinearLayout>(R.id.ll_loading_gif)
+        val showMessage = view.findViewById<TextView>(R.id.tv_message)
+        val reloadButton = view.findViewById<Button>(R.id.bt_reload)
+
         recyclerView = view.findViewById(R.id.rv_playlists)
 
         playlistAdapter = PlaylistAdapter(this)
@@ -54,14 +54,24 @@ class PlayListsFragment : Fragment(), PlaylistAdapter.MusicClickListener {
                     loadingGif.visibility = View.INVISIBLE
                     resource.data?.let {
                         playlistAdapter.differ.submitList(it.shorts.toList())
+                        viewModel.musicList = it.shorts
                     }
                 }
                 is Resource.Loading -> {
-                    loadingGif.visibility = View.VISIBLE
-                    Glide.with(this).asGif().load(R.drawable.monkey_cymbals).into(monkeyLoad)
+                    if (viewModel.musicList.isEmpty()) {
+                        loadingGif.visibility = View.VISIBLE
+                        showMessage.text = resources.getText(R.string.preparing_music)
+                        reloadButton.visibility = View.GONE
+                        Glide.with(this).asGif().load(R.drawable.monkey_cymbals).into(monkeyLoad)
+                    }
                 }
                 is Resource.Error -> {
-                    loadingGif.visibility = View.INVISIBLE
+                    loadingGif.visibility = View.VISIBLE
+                    showMessage.text = resource.message
+                    monkeyLoad.setImageResource(R.drawable.meditatingmonkey)
+                    reloadButton.setOnClickListener {
+                        viewModel.getAllSongs()
+                    }
                 }
             }
         })
@@ -72,5 +82,4 @@ class PlayListsFragment : Fragment(), PlaylistAdapter.MusicClickListener {
         val action = PlayListsFragmentDirections.actionPlayListsFragmentToMusicPlayerFragment(items, position)
         findNavController().navigate(action)
     }
-
 }

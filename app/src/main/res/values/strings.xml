@@ -11,4 +11,7 @@
     <string name="buffering">Buffering…</string>
     <string name="fast_forward">Fast Forward 5 seconds</string>
     <string name="rewind">Rewind 5 seconds</string>
+    <string name="reload">Reload</string>
+    <string name="channel_name">Channel 1</string>
+    <string name="channel_description">Channel 1 description...</string>
 </resources>
