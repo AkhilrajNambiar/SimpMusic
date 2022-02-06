@@ -67,7 +67,9 @@ class PlayListsFragment : Fragment(), PlaylistAdapter.MusicClickListener {
                         reloadButton.visibility = View.GONE
                         Glide.with(this).asGif().load(R.drawable.monkey_cymbals).into(monkeyLoad)
                     }
-                    showProgressBar(progressBar)
+                    else {
+                        showProgressBar(progressBar)
+                    }
                 }
                 is Resource.Error -> {
                     loadingGif.visibility = View.VISIBLE
