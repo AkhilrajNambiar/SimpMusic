@@ -39,6 +39,7 @@ class PlayListsFragment : Fragment(), PlaylistAdapter.MusicClickListener {
         val loadingGif = view.findViewById<LinearLayout>(R.id.ll_loading_gif)
         val showMessage = view.findViewById<TextView>(R.id.tv_message)
         val reloadButton = view.findViewById<Button>(R.id.bt_reload)
+        val progressBar = view.findViewById<ProgressBar>(R.id.pb_pagination)
 
         recyclerView = view.findViewById(R.id.rv_playlists)
 
@@ -46,15 +47,17 @@ class PlayListsFragment : Fragment(), PlaylistAdapter.MusicClickListener {
         recyclerView.apply {
             layoutManager = LinearLayoutManager(requireContext())
             adapter = playlistAdapter
+            addOnScrollListener(onScollListener)
         }
 
         viewModel.musicResponse.observe(viewLifecycleOwner, Observer { resource ->
             when(resource) {
                 is Resource.Success -> {
                     loadingGif.visibility = View.INVISIBLE
+                    hideProgressBar(progressBar)
                     resource.data?.let {
-                        playlistAdapter.differ.submitList(it.shorts.toList())
-                        viewModel.musicList = it.shorts
+                        viewModel.musicList.addAll(it.shorts)
+                        playlistAdapter.differ.submitList(viewModel.musicList.toList())
                     }
                 }
                 is Resource.Loading -> {
@@ -64,9 +67,11 @@ class PlayListsFragment : Fragment(), PlaylistAdapter.MusicClickListener {
                         reloadButton.visibility = View.GONE
                         Glide.with(this).asGif().load(R.drawable.monkey_cymbals).into(monkeyLoad)
                     }
+                    showProgressBar(progressBar)
                 }
                 is Resource.Error -> {
                     loadingGif.visibility = View.VISIBLE
+                    hideProgressBar(progressBar)
                     showMessage.text = resource.message
                     monkeyLoad.setImageResource(R.drawable.meditatingmonkey)
                     reloadButton.setOnClickListener {
@@ -75,6 +80,40 @@ class PlayListsFragment : Fragment(), PlaylistAdapter.MusicClickListener {
                 }
             }
         })
+    }
+
+    var isScrolling = false
+    var isLoading = false
+
+    val onScollListener = object: RecyclerView.OnScrollListener() {
+        override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+            super.onScrollStateChanged(recyclerView, newState)
+            if (newState == AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL) {
+                isScrolling = true
+            }
+        }
+
+        override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+            super.onScrolled(recyclerView, dx, dy)
+            val layoutManager = recyclerView.layoutManager as LinearLayoutManager
+            val totalItems = layoutManager.itemCount
+            val visibleItems = layoutManager.childCount
+            val scrolledItems = layoutManager.findFirstVisibleItemPosition()
+            if (isScrolling && totalItems == visibleItems + scrolledItems && !isLoading) {
+                viewModel.getAllSongs()
+            }
+            isScrolling = false
+        }
+    }
+
+    fun showProgressBar(bar: ProgressBar) {
+        bar.visibility = View.VISIBLE
+        isLoading = true
+    }
+
+    fun hideProgressBar(bar: ProgressBar) {
+        bar.visibility = View.GONE
+        isLoading = false
     }
 
     override fun onClick(position: Int) {

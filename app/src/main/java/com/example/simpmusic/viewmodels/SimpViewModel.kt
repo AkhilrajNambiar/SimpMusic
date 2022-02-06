@@ -23,7 +23,7 @@ class SimpViewModel(
     private val _musicResponse = MutableLiveData<Resource<SongsResponse>>()
     val musicResponse: LiveData<Resource<SongsResponse>> = _musicResponse
 
-    var musicList = listOf<Short>()
+    var musicList = mutableListOf<Short>()
 
     fun getAllSongs() = viewModelScope.launch(Dispatchers.IO) {
         _musicResponse.postValue(Resource.Loading())
